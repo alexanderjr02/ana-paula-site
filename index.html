@@ -428,6 +428,165 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
    quebra position:sticky nem o scroll suave. */
 html{ overflow-x:clip; }
 body{ overflow-x:clip; max-width:100vw; }
+
+/* ============ CARROSSEL DE RESULTADOS ============ */
+.carousel{margin-top:34px}
+.track{
+  display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-inline:26px;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.track::-webkit-scrollbar{display:none}
+.slide{
+  flex:0 0 auto;scroll-snap-align:center;
+  width:min(74vw,300px);padding:0;border:0;background:none;
+  text-align:left;cursor:zoom-in;display:block;
+}
+.slide-frame{
+  position:relative;display:block;overflow:hidden;border-radius:12px;
+  background:var(--porcelain-2);
+}
+.slide-frame img{
+  width:100%;height:auto;aspect-ratio:1;object-fit:cover;display:block;
+  transition:transform .7s cubic-bezier(.22,.61,.36,1);
+}
+.slide:hover .slide-frame img{transform:scale(1.04)}
+.slide-badge{
+  position:absolute;left:10px;top:10px;
+  font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--porcelain);background:rgba(42,33,29,.62);
+  padding:5px 9px;border-radius:100px;
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+}
+.slide-zoom{
+  position:absolute;right:10px;bottom:10px;width:32px;height:32px;
+  display:grid;place-content:center;border-radius:50%;
+  color:var(--porcelain);background:rgba(42,33,29,.55);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  transition:background .3s;
+}
+.slide-zoom svg{width:16px;height:16px}
+.slide:hover .slide-zoom{background:var(--mauve)}
+.slide-cap{display:block;padding:11px 2px 0}
+.slide-cap .k{
+  display:block;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--mauve);margin-bottom:3px;
+}
+.slide-cap .t{display:block;font-size:1rem;color:var(--ink);line-height:1.25}
+
+.car-ui{margin-top:18px;display:flex;align-items:center;gap:14px}
+.car-prog{flex:1;height:2px;background:var(--line);overflow:hidden;min-width:0}
+.car-prog i{display:block;height:100%;background:var(--mauve);width:20%;
+  transform-origin:left;transition:transform .25s cubic-bezier(.22,.61,.36,1)}
+.car-count{font-size:.6rem;letter-spacing:.16em;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.car-count b{color:var(--ink);font-weight:600}
+.car-nav{display:flex;gap:8px}
+
+/* ============ LIGHTBOX ============ */
+.lb{
+  position:fixed;inset:0;z-index:10000;background:rgba(24,18,15,.95);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;padding:70px 14px;
+  opacity:0;transition:opacity .28s ease;
+}
+.lb[hidden]{display:none}
+.lb.on{opacity:1}
+.lb-fig{margin:0;text-align:center;max-width:100%}
+.lb-fig img{
+  max-width:min(94vw,900px);max-height:74vh;width:auto;height:auto;
+  object-fit:contain;border-radius:8px;margin-inline:auto;display:block;
+}
+.lb-fig figcaption{margin-top:15px;color:var(--porcelain)}
+.lb-fig figcaption span{
+  display:block;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:5px;
+}
+.lb-fig figcaption b{font-weight:400;font-size:1.05rem;font-family:inherit}
+.lb-x,.lb-nav{
+  position:absolute;width:42px;height:42px;border-radius:50%;
+  color:var(--porcelain);border:1px solid rgba(244,237,231,.28);
+  display:grid;place-content:center;line-height:1;background:none;
+}
+.lb-x{top:14px;right:14px;font-size:26px}
+.lb-nav{top:50%;transform:translateY(-50%);font-size:22px}
+.lb-prev{left:10px}.lb-next{right:10px}
+.lb-x:hover,.lb-nav:hover{background:var(--porcelain);color:var(--ink)}
+
+/* ============ PROVA SOCIAL ============ */
+.proof{
+  margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.proof-i{padding:16px 8px;text-align:center;border-right:1px solid var(--line)}
+.proof-i:last-child{border-right:0}
+.proof-i b{display:block;font-family:var(--f-serif,Georgia,serif);
+  font-size:1.5rem;font-weight:400;line-height:1;color:var(--ink)}
+.proof-i small{display:block;margin-top:6px;font-size:.55rem;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink-soft);line-height:1.5}
+.proof-stars{display:flex;gap:2px;justify-content:center;margin-top:5px}
+.proof-stars i{
+  width:9px;height:9px;background:var(--mauve);
+  clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+.proof-stars i.half{opacity:.4}
+
+/* ============ PACOTES ============ */
+.promos{margin-top:30px;display:grid;gap:12px}
+.promo{
+  border:1px solid var(--line-strong);border-radius:14px;padding:22px 20px;
+  display:flex;flex-direction:column;gap:9px;background:var(--porcelain);
+  transition:border-color .3s,transform .3s;
+}
+.promo:hover{border-color:var(--mauve);transform:translateY(-2px)}
+.promo h3{font-size:1.28rem;line-height:1.2;font-weight:400;margin:0;color:var(--ink)}
+.promo-sel{
+  display:inline-block;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mauve);border:1px solid currentColor;border-radius:100px;padding:4px 10px;
+}
+.promo-desc{font-size:.87rem;line-height:1.55;color:var(--ink-soft);margin:0}
+.promo-val b{font-family:var(--f-serif,Georgia,serif);font-size:2rem;font-weight:400;
+  line-height:1;color:var(--ink)}
+.promo-cta{
+  margin-top:6px;align-self:flex-start;display:inline-flex;align-items:center;gap:9px;
+  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  color:var(--porcelain);background:var(--ink);
+  padding:12px 20px;border-radius:100px;text-decoration:none;
+  transition:background .3s,gap .3s;
+}
+.promo-cta:hover{background:var(--mauve);gap:14px}
+
+/* o maior ticket ganha o destaque escuro */
+.promo--hero{background:var(--ink);border-color:var(--ink)}
+.promo--hero h3,.promo--hero .promo-val b{color:var(--porcelain)}
+.promo--hero .promo-desc{color:rgba(244,237,231,.68)}
+.promo--hero .promo-sel{color:var(--gold)}
+.promo--hero .promo-val b{color:var(--gold)}
+.promo--hero .promo-cta{background:var(--gold);color:var(--ink)}
+.promo--hero .promo-cta:hover{background:var(--porcelain)}
+
+/* ============ WHATSAPP FLUTUANTE ============ */
+.wa-float{
+  position:fixed;right:16px;bottom:18px;z-index:9000;
+  width:52px;height:52px;border-radius:50%;
+  display:grid;place-content:center;
+  background:var(--mauve);color:#fff;
+  box-shadow:0 6px 22px rgba(42,33,29,.32);
+  opacity:0;transform:translateY(14px) scale(.9);pointer-events:none;
+  transition:opacity .4s,transform .4s cubic-bezier(.22,.61,.36,1),background .3s;
+}
+.wa-float.on{opacity:1;transform:none;pointer-events:auto}
+.wa-float svg{width:26px;height:26px;fill:currentColor}
+.wa-float:hover{background:var(--ink)}
+
+@media (min-width:520px){
+  .promos{grid-template-columns:1fr 1fr}
+  .promo--hero{grid-column:1/-1}
+  .slide{width:300px}
+  .wa-float{right:24px;bottom:24px;width:58px;height:58px}
+}
+@media (prefers-reduced-motion:reduce){
+  .slide-frame img,.promo,.wa-float{transition:none}
+}
 </style>
 </head>
 <body class="loading">
@@ -482,6 +641,18 @@ body{ overflow-x:clip; max-width:100vw; }
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
       Instagram
     </a>
+<div class="proof reveal">
+  <div class="proof-i">
+    <b>4,7</b>
+    <span class="proof-stars" role="img" aria-label="Nota 4,7 de 5 no Google">
+      <i></i><i></i><i></i><i></i><i class="half"></i>
+    </span>
+    <small>46 avaliações no Google</small>
+  </div>
+  <div class="proof-i"><b>13</b><small>anos de experiência</small></div>
+  <div class="proof-i"><b id="hojeStatus">—</b><small id="hojeTxt">verificando</small></div>
+</div>
+
   </div>
 
   <!-- FUNNEL -->
@@ -573,35 +744,45 @@ body{ overflow-x:clip; max-width:100vw; }
   </section>
   <div class="tabs reveal" id="tabs"><button class="tab active" data-cat="todos">Todos</button><button class="tab" data-cat="sobrancelhas">Sobrancelhas</button><button class="tab" data-cat="micro">Micropigmentação</button><button class="tab" data-cat="unhas">Unhas e pés</button><button class="tab" data-cat="facial">Estética facial</button><button class="tab" data-cat="massagens">Massagens</button></div>
 <div class="pad" id="svc-wrap"><div class="svc-group reveal" data-cat="sobrancelhas"><h4>Sobrancelhas <span>04</span></h4><div class="pills"><span class="pill"><span class="pill-n">Design de sobrancelhas</span><b class="pill-v">R$ 50</b></span><span class="pill"><span class="pill-n">Design com henna</span><b class="pill-v">R$ 60</b></span><span class="pill"><span class="pill-n">Brow Lamination</span><b class="pill-v">R$ 100</b></span><span class="pill"><span class="pill-n">Tintura</span><b class="pill-v">R$ 60</b></span></div></div><div class="svc-group reveal" data-cat="micro"><h4>Micropigmentação <span>01</span></h4><div class="pills"><span class="pill"><span class="pill-n">Micropigmentação</span><b class="pill-v">R$ 490 ou 5x R$ 110</b></span></div></div><div class="svc-group reveal" data-cat="unhas"><h4>Unhas e pés <span>04</span></h4><div class="pills"><span class="pill"><span class="pill-n">Pé + mão</span><b class="pill-v">R$ 55</b></span><span class="pill"><span class="pill-n">Spa dos pés</span><b class="pill-v">R$ 70</b></span><span class="pill"><span class="pill-n">Pé + mão + Spa dos pés</span><b class="pill-v">R$ 120</b></span><span class="pill"><span class="pill-n">Tratamento para os pés</span><b class="pill-v">R$ 100</b></span></div></div><div class="svc-group reveal" data-cat="facial"><h4>Estética facial <span>04</span></h4><div class="pills"><span class="pill"><span class="pill-n">Limpeza de pele</span><b class="pill-v">R$ 150</b></span><span class="pill"><span class="pill-n">Despigmentação</span><b class="pill-v">R$ 150</b></span><span class="pill"><span class="pill-n">Microagulhamento</span><b class="pill-v">sob avaliação</b></span><span class="pill"><span class="pill-n">Remoção de sinais</span><b class="pill-v">R$ 100</b></span></div></div><div class="svc-group reveal" data-cat="massagens"><h4>Massagens <span>04</span></h4><div class="pills"><span class="pill"><span class="pill-n">Massagem</span><b class="pill-v">R$ 100</b></span><span class="pill"><span class="pill-n">Ventosa + massagem</span><b class="pill-v">R$ 120</b></span><span class="pill"><span class="pill-n">Pacote de 5 massagens</span><b class="pill-v">R$ 400</b></span><span class="pill"><span class="pill-n">Pacote de 5 massagens + 2 ventosas</span><b class="pill-v">R$ 400</b></span></div></div></div>
+<section class="sec pad" id="promocoes">
+  <div class="sec-head reveal">
+    <div class="row"><span class="section-index">02</span><span class="eyebrow">Vale mais a pena</span></div>
+    <h2 class="sec-title serif">Pacotes</h2>
+    <p class="sec-lead">Combinações que saem melhor do que fechar sessão por sessão.</p>
+  </div>
+  <div class="promos reveal"><article class="promo promo--hero"><div class="promo-top"><span class="promo-sel">à vista, ou 5× de R$ 110</span></div><h3 class="serif">Micropigmentação</h3><p class="promo-desc">Acorde pronta. Fio a fio ou shadow, com avaliação antes de começar.</p><div class="promo-val"><b>R$ 490</b></div><a class="promo-cta" href="https://wa.me/5561993699986?text=Ol%C3%A1%2C%20Ana%20Paula%21%20Vim%20pelo%20link%20do%20Instagram%20e%20quero%20saber%20mais%20sobre%20a%20micropigmenta%C3%A7%C3%A3o" target="_blank" rel="noopener">Quero este<span aria-hidden="true">&rarr;</span></a></article><article class="promo"><div class="promo-top"><span class="promo-sel">economize R$ 100</span></div><h3 class="serif">Pacote de 5 massagens</h3><p class="promo-desc">Cinco sessões pelo preço de quatro. Para quem trata, não só relaxa.</p><div class="promo-val"><b>R$ 400</b></div><a class="promo-cta" href="https://wa.me/5561993699986?text=Ol%C3%A1%2C%20Ana%20Paula%21%20Vim%20pelo%20link%20do%20Instagram%20e%20quero%20o%20pacote%20de%205%20massagens" target="_blank" rel="noopener">Quero este<span aria-hidden="true">&rarr;</span></a></article><article class="promo"><div class="promo-top"><span class="promo-sel">melhor custo-benefício</span></div><h3 class="serif">5 massagens + 2 ventosas</h3><p class="promo-desc">O mesmo valor do pacote simples, com duas sessões de ventosa incluídas.</p><div class="promo-val"><b>R$ 400</b></div><a class="promo-cta" href="https://wa.me/5561993699986?text=Ol%C3%A1%2C%20Ana%20Paula%21%20Vim%20pelo%20link%20do%20Instagram%20e%20quero%20o%20pacote%20de%205%20massagens%20com%202%20ventosas" target="_blank" rel="noopener">Quero este<span aria-hidden="true">&rarr;</span></a></article><article class="promo"><div class="promo-top"><span class="promo-sel">combo</span></div><h3 class="serif">Pé + mão + Spa dos pés</h3><p class="promo-desc">Os três juntos, numa sessão só.</p><div class="promo-val"><b>R$ 120</b></div><a class="promo-cta" href="https://wa.me/5561993699986?text=Ol%C3%A1%2C%20Ana%20Paula%21%20Vim%20pelo%20link%20do%20Instagram%20e%20quero%20o%20combo%20de%20p%C3%A9%2C%20m%C3%A3o%20e%20spa%20dos%20p%C3%A9s" target="_blank" rel="noopener">Quero este<span aria-hidden="true">&rarr;</span></a></article></div>
+</section>
+
 
   <!-- TRANSFORMATIONS -->
   <section class="sec pad">
     <div class="sec-head reveal">
-      <div class="row"><span class="section-index">02</span><span class="eyebrow">Antes &amp; depois</span></div>
+      <div class="row"><span class="section-index">03</span><span class="eyebrow">Antes &amp; depois</span></div>
       <h2 class="sec-title serif">Transformações</h2>
-      <p class="sec-lead">Resultados reais de clientes, sempre com foco na naturalidade e na harmonia do rosto.</p>
+      <p class="sec-lead">Resultados reais de clientes. Toque em qualquer foto para ver de perto.</p>
     </div>
   </section>
   <div class="carousel reveal">
-    <div class="track" id="track">
-      <div class="slide"><div class="slide-frame"><div class="ba-tag"><span>Antes</span><span>Depois</span></div><img src="assets/img/ba-sobrancelhas-01.webp" alt="Antes e depois de sobrancelhas" loading="lazy" decoding="async"></div><div class="slide-cap"><div class="k">Sobrancelhas</div><div class="t serif">Design e realce natural</div></div></div>
-      <div class="slide"><div class="slide-frame"><div class="ba-tag"><span>Antes</span><span>Depois</span></div><img src="assets/img/ba-sobrancelhas-02.webp" alt="Antes e depois de brow lamination" loading="lazy" decoding="async"></div><div class="slide-cap"><div class="k">Sobrancelhas</div><div class="t serif">Brow Lamination</div></div></div>
-      <div class="slide"><div class="slide-frame"><div class="ba-tag"><span>Design</span><span>Henna</span></div><img src="assets/img/ba-brow-lamination.webp" alt="Design de sobrancelhas com henna" loading="lazy" decoding="async"></div><div class="slide-cap"><div class="k">Sobrancelhas</div><div class="t serif">Design com henna</div></div></div>
-      <div class="slide"><div class="slide-frame"><div class="ba-tag"><span>Antes</span><span>Depois</span></div><img src="assets/img/ba-henna.webp" alt="Micropigmentação labial" loading="lazy" decoding="async"></div><div class="slide-cap"><div class="k">Lábios</div><div class="t serif">Micropigmentação labial</div></div></div>
-      <div class="slide"><div class="slide-frame"><div class="ba-tag"><span>Antes</span><span>Depois</span></div><img src="assets/img/ba-labios-01.webp" alt="Micropigmentação labial com cobertura" loading="lazy" decoding="async"></div><div class="slide-cap"><div class="k">Lábios</div><div class="t serif">Cobertura e cor</div></div></div>
-      <div class="slide"><div class="slide-frame"><div class="ba-tag"><span>Antes</span><span>Depois</span></div><img src="assets/img/ba-labios-02.webp" alt="Neutralização labial" loading="lazy" decoding="async"></div><div class="slide-cap"><div class="k">Lábios</div><div class="t serif">Neutralização labial</div></div></div>
-      <div class="slide"><div class="slide-frame"><div class="ba-tag"><span>Antes</span><span>Depois</span></div><img src="assets/img/ba-neutralizacao.webp" alt="Limpeza de pele" loading="lazy" decoding="async"></div><div class="slide-cap"><div class="k">Pele</div><div class="t serif">Limpeza de pele profunda</div></div></div>
-      <div class="slide"><div class="slide-frame"><div class="ba-tag"><span>Antes</span><span>Depois</span></div><img src="assets/img/ba-limpeza-pele.webp" alt="Tratamento facial" loading="lazy" decoding="async"></div><div class="slide-cap"><div class="k">Pele</div><div class="t serif">Viço e uniformidade</div></div></div>
-      <div class="slide"><div class="slide-frame"><div class="ba-tag"><span>Antes</span><span>Depois</span></div><img src="assets/img/ba-facial.webp" alt="Aplicação de botox na testa" loading="lazy" decoding="async"></div><div class="slide-cap"><div class="k">Facial</div><div class="t serif">Botox, linhas da testa</div></div></div>
-    </div>
-    <div class="carousel-nav">
-      <div class="dots" id="dots"></div>
-      <div class="arrows">
-        <button class="arrow" id="prev" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-        <button class="arrow" id="next" aria-label="Próximo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      </div>
+  <div class="track" id="track"><button class="slide" type="button" data-i="0" aria-label="Ampliar: Fio a fio, desenho natural"><span class="slide-frame"><img src="assets/img/ba-sobrancelhas-01.webp" alt="Antes e depois de fio a fio, desenho natural na Ana Paula Estética" loading="lazy" decoding="async" width="1000" height="1000"><span class="slide-badge">Antes e depois</span><span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2M11 8v6M8 11h6"/></svg></span></span><span class="slide-cap"><span class="k">Micropigmentação</span><span class="t serif">Fio a fio, desenho natural</span></span></button><button class="slide" type="button" data-i="1" aria-label="Ampliar: Brow Lamination"><span class="slide-frame"><img src="assets/img/ba-sobrancelhas-02.webp" alt="Antes e depois de brow lamination na Ana Paula Estética" loading="lazy" decoding="async" width="1000" height="1000"><span class="slide-badge">Antes e depois</span><span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2M11 8v6M8 11h6"/></svg></span></span><span class="slide-cap"><span class="k">Sobrancelhas</span><span class="t serif">Brow Lamination</span></span></button><button class="slide" type="button" data-i="2" aria-label="Ampliar: Do natural ao definido"><span class="slide-frame"><img src="assets/img/ba-brow-lamination.webp" alt="Antes e depois de do natural ao definido na Ana Paula Estética" loading="lazy" decoding="async" width="1000" height="1000"><span class="slide-badge">Antes e depois</span><span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2M11 8v6M8 11h6"/></svg></span></span><span class="slide-cap"><span class="k">Sobrancelhas</span><span class="t serif">Do natural ao definido</span></span></button><button class="slide" type="button" data-i="3" aria-label="Ampliar: Design com henna"><span class="slide-frame"><img src="assets/img/ba-henna.webp" alt="Antes e depois de design com henna na Ana Paula Estética" loading="lazy" decoding="async" width="1000" height="1000"><span class="slide-badge">Antes e depois</span><span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2M11 8v6M8 11h6"/></svg></span></span><span class="slide-cap"><span class="k">Sobrancelhas</span><span class="t serif">Design com henna</span></span></button><button class="slide" type="button" data-i="4" aria-label="Ampliar: Labial, cor e contorno"><span class="slide-frame"><img src="assets/img/ba-labios-01.webp" alt="Antes e depois de labial, cor e contorno na Ana Paula Estética" loading="lazy" decoding="async" width="1000" height="1000"><span class="slide-badge">Antes e depois</span><span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2M11 8v6M8 11h6"/></svg></span></span><span class="slide-cap"><span class="k">Micropigmentação</span><span class="t serif">Labial, cor e contorno</span></span></button><button class="slide" type="button" data-i="5" aria-label="Ampliar: Labial com cobertura"><span class="slide-frame"><img src="assets/img/ba-labios-02.webp" alt="Antes e depois de labial com cobertura na Ana Paula Estética" loading="lazy" decoding="async" width="1000" height="1000"><span class="slide-badge">Antes e depois</span><span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2M11 8v6M8 11h6"/></svg></span></span><span class="slide-cap"><span class="k">Micropigmentação</span><span class="t serif">Labial com cobertura</span></span></button><button class="slide" type="button" data-i="6" aria-label="Ampliar: Neutralização labial"><span class="slide-frame"><img src="assets/img/ba-neutralizacao.webp" alt="Antes e depois de neutralização labial na Ana Paula Estética" loading="lazy" decoding="async" width="1000" height="1000"><span class="slide-badge">Antes e depois</span><span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2M11 8v6M8 11h6"/></svg></span></span><span class="slide-cap"><span class="k">Micropigmentação</span><span class="t serif">Neutralização labial</span></span></button><button class="slide" type="button" data-i="7" aria-label="Ampliar: Limpeza de pele"><span class="slide-frame"><img src="assets/img/ba-limpeza-pele.webp" alt="Antes e depois de limpeza de pele na Ana Paula Estética" loading="lazy" decoding="async" width="1000" height="1000"><span class="slide-badge">Antes e depois</span><span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2M11 8v6M8 11h6"/></svg></span></span><span class="slide-cap"><span class="k">Estética facial</span><span class="t serif">Limpeza de pele</span></span></button><button class="slide" type="button" data-i="8" aria-label="Ampliar: Tratamento facial"><span class="slide-frame"><img src="assets/img/ba-facial.webp" alt="Antes e depois de tratamento facial na Ana Paula Estética" loading="lazy" decoding="async" width="1000" height="1000"><span class="slide-badge">Antes e depois</span><span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2M11 8v6M8 11h6"/></svg></span></span><span class="slide-cap"><span class="k">Estética facial</span><span class="t serif">Tratamento facial</span></span></button></div>
+  <div class="car-ui pad">
+    <div class="car-prog"><i id="carProg"></i></div>
+    <div class="car-count"><b id="carNow">01</b> / 09</div>
+    <div class="car-nav">
+      <button class="arrow" id="prev" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+      <button class="arrow" id="next" aria-label="Próximo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
   </div>
+</div>
+
+<div class="lb" id="lb" hidden>
+  <button class="lb-x" id="lbX" type="button" aria-label="Fechar">&times;</button>
+  <button class="lb-nav lb-prev" id="lbPrev" type="button" aria-label="Anterior">&#8249;</button>
+  <figure class="lb-fig">
+    <img id="lbImg" src="" alt="">
+    <figcaption><span id="lbK"></span><b id="lbT"></b></figcaption>
+  </figure>
+  <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="Próximo">&#8250;</button>
+</div>
 
   <!-- ABOUT -->
   <section class="about">
@@ -724,35 +905,7 @@ const CONFIG = {
     });
   });
 
-  // Carousel
-  const track = document.getElementById("track");
-  const slides = track.querySelectorAll(".slide");
-  const dotsWrap = document.getElementById("dots");
-  slides.forEach((s,i)=>{
-    const d = document.createElement("button");
-    d.className = "dot-b" + (i===0?" on":"");
-    d.setAttribute("aria-label","Ir para transformação "+(i+1));
-    d.addEventListener("click", ()=> slides[i].scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"}));
-    dotsWrap.appendChild(d);
-  });
-  const dots = dotsWrap.querySelectorAll(".dot-b");
-  const slideW = () => slides[0].offsetWidth + 14;
-  document.getElementById("next").addEventListener("click", ()=> track.scrollBy({left:slideW(),behavior:"smooth"}));
-  document.getElementById("prev").addEventListener("click", ()=> track.scrollBy({left:-slideW(),behavior:"smooth"}));
-  let raf;
-  track.addEventListener("scroll", ()=>{
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(()=>{
-      const center = track.scrollLeft + track.offsetWidth/2;
-      let idx = 0, best = Infinity;
-      slides.forEach((s,i)=>{
-        const c = s.offsetLeft + s.offsetWidth/2;
-        const dist = Math.abs(c-center);
-        if(dist<best){best=dist;idx=i;}
-      });
-      dots.forEach((d,i)=>d.classList.toggle("on", i===idx));
-    });
-  }, {passive:true});
+  /* carrossel antigo removido: substituido pelo bloco no fim deste script */
 
   // ---------- Funnel ----------
   const waLink = (msg) => "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
@@ -858,6 +1011,138 @@ const CONFIG = {
     nameIn.value = ""; goStep(1);
   });
 })();
+
+/* ---------- carrossel: progresso, contador, setas ---------- */
+(function(){
+  var trilho=document.getElementById('track');
+  if(!trilho) return;
+  var prog=document.getElementById('carProg'),
+      agora=document.getElementById('carNow'),
+      ant=document.getElementById('prev'), prox=document.getElementById('next'),
+      itens=[].slice.call(trilho.children);
+
+  function passo(dir){
+    var l=itens[0].getBoundingClientRect().width+12;
+    trilho.scrollBy({left:dir*l,behavior:'smooth'});
+  }
+  if(ant) ant.onclick=function(){passo(-1)};
+  if(prox) prox.onclick=function(){passo(1)};
+
+  function sync(){
+    var max=trilho.scrollWidth-trilho.clientWidth;
+    var fatia=Math.min(1,trilho.clientWidth/trilho.scrollWidth);
+    var andado=max>0?trilho.scrollLeft/max:0;
+    if(prog){
+      prog.style.width=(fatia*100)+'%';
+      prog.style.transform='translateX('+(andado*(prog.parentNode.clientWidth)*(1-fatia))+'px)';
+    }
+    if(agora){
+      var l=itens[0].getBoundingClientRect().width+12;
+      var i=Math.min(itens.length,Math.round(trilho.scrollLeft/l)+1);
+      agora.textContent=(i<10?'0':'')+i;
+    }
+    if(ant&&prox){
+      ant.style.opacity=trilho.scrollLeft<=2?'.3':'1';
+      prox.style.opacity=trilho.scrollLeft>=max-2?'.3':'1';
+    }
+  }
+  trilho.addEventListener('scroll',sync,{passive:true});
+  window.addEventListener('resize',sync);
+  sync();
+
+  /* arraste com o mouse */
+  var seg=false,x0=0,s0=0,mov=0;
+  trilho.addEventListener('dragstart',function(e){e.preventDefault()});
+  trilho.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='touch'||e.button!==0) return;
+    e.preventDefault();seg=true;mov=0;x0=e.clientX;s0=trilho.scrollLeft;
+    trilho.setPointerCapture(e.pointerId);trilho.style.cursor='grabbing';
+  });
+  trilho.addEventListener('pointermove',function(e){
+    if(!seg) return;
+    var dx=e.clientX-x0;mov=Math.abs(dx);
+    if(mov>4) trilho.style.scrollSnapType='none';
+    trilho.scrollLeft=s0-dx;
+  });
+  function solta(){seg=false;trilho.style.cursor='';trilho.style.scrollSnapType='';}
+  trilho.addEventListener('pointerup',solta);
+  trilho.addEventListener('pointercancel',solta);
+
+  /* ---------- lightbox ---------- */
+  var lb=document.getElementById('lb');
+  if(!lb) return;
+  var img=document.getElementById('lbImg'),k=document.getElementById('lbK'),
+      t=document.getElementById('lbT'),atual=0,quem=null;
+
+  function mostra(i){
+    atual=(i+itens.length)%itens.length;
+    var s=itens[atual],im=s.querySelector('img');
+    img.src=im.currentSrc||im.src; img.alt=im.alt;
+    k.textContent=s.querySelector('.k').textContent;
+    t.textContent=s.querySelector('.t').textContent;
+  }
+  function abre(i,btn){
+    if(mov>6) return;
+    quem=btn;mostra(i);lb.hidden=false;document.body.style.overflow='hidden';
+    requestAnimationFrame(function(){lb.classList.add('on')});
+    document.getElementById('lbX').focus();
+  }
+  function fecha(){
+    lb.classList.remove('on');document.body.style.overflow='';
+    setTimeout(function(){lb.hidden=true;img.src='';if(quem)quem.focus();},300);
+  }
+  itens.forEach(function(s,i){s.addEventListener('click',function(){abre(i,s)})});
+  document.getElementById('lbX').onclick=fecha;
+  document.getElementById('lbPrev').onclick=function(){mostra(atual-1)};
+  document.getElementById('lbNext').onclick=function(){mostra(atual+1)};
+  lb.addEventListener('click',function(e){if(e.target===lb)fecha()});
+  document.addEventListener('keydown',function(e){
+    if(lb.hidden) return;
+    if(e.key==='Escape')fecha();
+    if(e.key==='ArrowLeft')mostra(atual-1);
+    if(e.key==='ArrowRight')mostra(atual+1);
+  });
+  var tx=null;
+  lb.addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{passive:true});
+  lb.addEventListener('touchend',function(e){
+    if(tx===null)return;
+    var dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>50)mostra(atual+(dx<0?1:-1));
+    tx=null;
+  },{passive:true});
+})();
+
+/* ---------- atendemos hoje? terça a sábado ---------- */
+(function(){
+  var el=document.getElementById('hojeStatus'), tx=document.getElementById('hojeTxt');
+  if(!el) return;
+  var d=new Date().getDay();          // 0 domingo ... 6 sabado
+  var abre=(d>=2&&d<=6);
+  el.textContent=abre?'Hoje':'Fechado';
+  tx.textContent=abre?'atendemos com hora marcada':'abrimos terça a sábado';
+})();
+
+/* ---------- whatsapp flutuante aparece apos o topo ---------- */
+(function(){
+  var b=document.getElementById('waFloat');
+  if(!b) return;
+  var marca=function(){
+    var y=window.pageYOffset;
+    b.classList.toggle('on', y>window.innerHeight*0.6);
+  };
+  window.addEventListener('scroll',marca,{passive:true});
+  marca();
+})();
 </script>
+
+<a class="wa-float" id="waFloat"
+   href="https://wa.me/5561993699986?text=Ol%C3%A1%2C%20Ana%20Paula!%20Vim%20pelo%20link%20do%20Instagram%20e%20quero%20agendar%20um%20hor%C3%A1rio."
+   target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/>
+    <path d="M12.04 2.5C6.79 2.5 2.52 6.77 2.52 12.02c0 1.68.44 3.32 1.28 4.77L2.5 21.5l4.85-1.27a9.47 9.47 0 0 0 4.69 1.2h.01c5.24 0 9.51-4.27 9.51-9.51 0-2.54-.99-4.93-2.79-6.73a9.45 9.45 0 0 0-6.73-2.79zm0 17.36h-.01a7.9 7.9 0 0 1-4.02-1.1l-.29-.17-2.99.78.8-2.92-.19-.3a7.87 7.87 0 0 1-1.21-4.21c0-4.36 3.55-7.91 7.91-7.91 2.11 0 4.1.82 5.59 2.32a7.86 7.86 0 0 1 2.31 5.6c0 4.36-3.55 7.91-7.9 7.91z"/>
+  </svg>
+</a>
+
 </body>
 </html>
