@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-fonte.webp">
 <link rel="icon" type="image/png" sizes="64x64" href="assets/img/icone-2.webp">
 <link rel="apple-touch-icon" href="assets/img/icone-3.webp">
-<meta name="description" content="Ana Paula Estética no Setor Central do Gama, DF. Sobrancelhas, micropigmentação, cílios, estética facial e corporal. Cuidado e profissionalismo para realçar a sua beleza natural.">
+<meta name="description" content="Ana Paula Estética no Setor Central do Gama, DF. Design de sobrancelhas, micropigmentação, limpeza de pele e massagens. Cuidado e profissionalismo para realçar a sua beleza natural.">
 <link rel="canonical" href="https://bio.aanapaulaestetica.com.br/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#2A211D">
@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Ana Paula Estética">
 <meta property="og:url" content="https://bio.aanapaulaestetica.com.br/">
 <meta property="og:title" content="Ana Paula Estética | Sobrancelhas e Micropigmentação no Gama, DF">
-<meta property="og:description" content="Design de sobrancelhas, micropigmentação, cílios e estética facial no Setor Central do Gama. Agende pelo WhatsApp.">
+<meta property="og:description" content="Design de sobrancelhas, micropigmentação, limpeza de pele e massagens no Setor Central do Gama, DF. Agende pelo WhatsApp.">
 <meta property="og:image" content="https://bio.aanapaulaestetica.com.br/assets/img/og-capa.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -24,7 +24,7 @@
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ana Paula Estética | Sobrancelhas e Micropigmentação no Gama, DF">
-<meta name="twitter:description" content="Design de sobrancelhas, micropigmentação, cílios e estética facial no Setor Central do Gama. Agende pelo WhatsApp.">
+<meta name="twitter:description" content="Design de sobrancelhas, micropigmentação, limpeza de pele e massagens no Setor Central do Gama, DF. Agende pelo WhatsApp.">
 <meta name="twitter:image" content="https://bio.aanapaulaestetica.com.br/assets/img/og-capa.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -356,17 +356,93 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none}
 }
+
+/* ---------- Loader: retrato em marca d'agua ---------- */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;
+  overflow:hidden;
+  transition:transform 1s cubic-bezier(.76,0,.24,1), opacity .6s ease;
+}
+#loader.done{transform:translateY(-100%)}
+#loader .loader-bg{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 22%;
+  opacity:0;
+  filter:grayscale(.35) contrast(1.06);
+  animation:lbIn 1.6s ease .1s forwards, lbZoom 7s ease-out .1s forwards;
+}
+#loader .loader-veil{
+  position:absolute;inset:0;
+  background:rgba(42,33,29,.80);
+}
+@keyframes lbIn{ to{opacity:.30} }
+@keyframes lbZoom{ from{transform:scale(1.12)} to{transform:scale(1)} }
+
+.loader-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px}
+.loader-logo{width:min(320px,78vw);height:auto;opacity:0;animation:fadeUp 1s ease .45s forwards}
+.loader-claim{
+  font-size:clamp(1.35rem,6vw,1.7rem);font-style:italic;line-height:1.2;
+  color:var(--porcelain);opacity:0;animation:fadeUp 1s ease 1.05s forwards;
+}
+.loader-line{
+  width:0;height:1px;background:var(--gold);
+  animation:grow 1.1s cubic-bezier(.65,0,.35,1) .85s forwards;
+}
+.loader-word{
+  font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;
+  color:rgba(244,237,231,.72);
+  opacity:0;animation:fadeUp 1s ease 1.45s forwards;padding-left:.4em;
+}
+.loader-bar{
+  position:absolute;left:0;right:0;bottom:0;height:2px;z-index:2;
+  background:rgba(244,237,231,.14);
+}
+.loader-bar i{
+  display:block;height:100%;width:0;background:var(--gold);
+  animation:lbFill 1.9s cubic-bezier(.4,0,.2,1) .2s forwards;
+}
+@keyframes lbFill{ to{width:100%} }
+
+@media (prefers-reduced-motion:reduce){
+  #loader .loader-bg{animation:none;opacity:.26}
+  .loader-logo,.loader-word,.loader-claim{animation:none;opacity:1}
+  .loader-line{animation:none;width:64px}
+  .loader-bar i{animation:none;width:100%}
+}
+
+/* ---------- preco dentro da pilula ---------- */
+.pill{display:inline-flex;align-items:baseline;gap:9px}
+.pill-n{white-space:nowrap}
+.pill-v{
+  font-weight:600;font-size:.74rem;letter-spacing:.02em;
+  color:var(--mauve);white-space:nowrap;
+}
+.pill:hover .pill-v{color:inherit}
+
+/* ---------- corte lateral ----------
+   Os blocos sangrados (hero, abas, carrosseis) sao mais largos que a tela
+   de proposito. So o body cortava, e o excesso escapava pelo html, criando
+   rolagem lateral. "clip" corta sem virar container de rolagem, entao nao
+   quebra position:sticky nem o scroll suave. */
+html{ overflow-x:clip; }
+body{ overflow-x:clip; max-width:100vw; }
 </style>
 </head>
 <body class="loading">
 
 <!-- LOADER -->
 <div id="loader">
+  <img class="loader-bg" src="assets/img/marca-dagua.webp" alt="" aria-hidden="true">
+  <div class="loader-veil" aria-hidden="true"></div>
   <div class="loader-inner">
-    <img class="loader-logo" src="logo-transparente.png" alt="Ana Paula Estética">
+    <img class="loader-logo" src="assets/img/marca-clara.webp" alt="Ana Paula Estética" width="452" height="80">
     <div class="loader-line"></div>
+    <div class="loader-claim serif">Seja sua melhor versão</div>
     <div class="loader-word">Setor Central &middot; Gama, DF</div>
   </div>
+  <div class="loader-bar" aria-hidden="true"><i></i></div>
 </div>
 
 <div class="spine"><span>Estética</span><span class="l"></span><span>Gama, DF</span></div>
@@ -394,7 +470,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   </div>
 
   <div class="hero-copy reveal">
-    <p>Procedimentos de sobrancelhas, micropigmentação, cílios e estética facial pensados na harmonia do seu rosto, para elevar a sua autoestima com naturalidade.</p>
+    <p>Design de sobrancelhas, micropigmentação, cuidados de pele e massagem, pensados na harmonia do seu rosto e no seu bem-estar. Treze anos de técnica no Setor Central do Gama.</p>
   </div>
 
   <div class="cta-row reveal">
@@ -492,70 +568,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
     <div class="sec-head reveal">
       <div class="row"><span class="section-index">01</span><span class="eyebrow">O que fazemos</span></div>
       <h2 class="sec-title serif">Serviços</h2>
-      <p class="sec-lead">Um cuidado completo para o seu rosto e corpo. Selecione uma categoria para ver todos os procedimentos.</p>
+      <p class="sec-lead">Tudo o que fazemos, com o preço na frente. Selecione uma categoria para ver os procedimentos.</p>
     </div>
   </section>
-  <div class="tabs reveal" id="tabs">
-    <button class="tab active" data-cat="todos">Todos</button>
-    <button class="tab" data-cat="brows">Sobrancelhas &amp; Cílios</button>
-    <button class="tab" data-cat="micro">Micropigmentação</button>
-    <button class="tab" data-cat="facial">Estética Facial</button>
-    <button class="tab" data-cat="corpo">Corpo &amp; Bem-estar</button>
-    <button class="tab" data-cat="maospes">Mãos &amp; Pés</button>
-  </div>
-  <div class="pad" id="svc-wrap">
-    <div class="svc-group reveal" data-cat="brows">
-      <h4>Sobrancelhas &amp; Cílios <span>09</span></h4>
-      <div class="pills">
-        <span class="pill">Design de sobrancelhas</span>
-        <span class="pill">Design com henna</span>
-        <span class="pill">Design inteligente</span>
-        <span class="pill">Reconstrução de sobrancelhas</span>
-        <span class="pill">Brow Lamination</span>
-        <span class="pill">Extensão de cílios</span>
-        <span class="pill">Lash Lift</span>
-        <span class="pill">Tintura</span>
-        <span class="pill">Retirada de cílios</span>
-      </div>
-    </div>
-    <div class="svc-group reveal" data-cat="micro">
-      <h4>Micropigmentação <span>04</span></h4>
-      <div class="pills">
-        <span class="pill">Micropigmentação de sobrancelhas</span>
-        <span class="pill">Micropigmentação labial</span>
-        <span class="pill">Neutralização labial</span>
-        <span class="pill">Remoção de micropigmentação e tatuagem</span>
-      </div>
-    </div>
-    <div class="svc-group reveal" data-cat="facial">
-      <h4>Estética Facial <span>07</span></h4>
-      <div class="pills">
-        <span class="pill">Limpeza de pele</span>
-        <span class="pill">Peeling</span>
-        <span class="pill">Botox</span>
-        <span class="pill">Microagulhamento</span>
-        <span class="pill">Jato de plasma</span>
-        <span class="pill">Dermaplaning</span>
-        <span class="pill">Tratamento de acne</span>
-      </div>
-    </div>
-    <div class="svc-group reveal" data-cat="corpo">
-      <h4>Corpo &amp; Bem-estar <span>03</span></h4>
-      <div class="pills">
-        <span class="pill">Massagem</span>
-        <span class="pill">Depilação</span>
-        <span class="pill">Tratamento de varizes</span>
-      </div>
-    </div>
-    <div class="svc-group reveal" data-cat="maospes">
-      <h4>Mãos &amp; Pés <span>03</span></h4>
-      <div class="pills">
-        <span class="pill">Pé e mão</span>
-        <span class="pill">Spa dos pés</span>
-        <span class="pill">Tratamento dos pés</span>
-      </div>
-    </div>
-  </div>
+  <div class="tabs reveal" id="tabs"><button class="tab active" data-cat="todos">Todos</button><button class="tab" data-cat="sobrancelhas">Sobrancelhas</button><button class="tab" data-cat="micro">Micropigmentação</button><button class="tab" data-cat="unhas">Unhas e pés</button><button class="tab" data-cat="facial">Estética facial</button><button class="tab" data-cat="massagens">Massagens</button></div>
+<div class="pad" id="svc-wrap"><div class="svc-group reveal" data-cat="sobrancelhas"><h4>Sobrancelhas <span>04</span></h4><div class="pills"><span class="pill"><span class="pill-n">Design de sobrancelhas</span><b class="pill-v">R$ 50</b></span><span class="pill"><span class="pill-n">Design com henna</span><b class="pill-v">R$ 60</b></span><span class="pill"><span class="pill-n">Brow Lamination</span><b class="pill-v">R$ 100</b></span><span class="pill"><span class="pill-n">Tintura</span><b class="pill-v">R$ 60</b></span></div></div><div class="svc-group reveal" data-cat="micro"><h4>Micropigmentação <span>01</span></h4><div class="pills"><span class="pill"><span class="pill-n">Micropigmentação</span><b class="pill-v">R$ 490 ou 5x R$ 110</b></span></div></div><div class="svc-group reveal" data-cat="unhas"><h4>Unhas e pés <span>04</span></h4><div class="pills"><span class="pill"><span class="pill-n">Pé + mão</span><b class="pill-v">R$ 55</b></span><span class="pill"><span class="pill-n">Spa dos pés</span><b class="pill-v">R$ 70</b></span><span class="pill"><span class="pill-n">Pé + mão + Spa dos pés</span><b class="pill-v">R$ 120</b></span><span class="pill"><span class="pill-n">Tratamento para os pés</span><b class="pill-v">R$ 100</b></span></div></div><div class="svc-group reveal" data-cat="facial"><h4>Estética facial <span>04</span></h4><div class="pills"><span class="pill"><span class="pill-n">Limpeza de pele</span><b class="pill-v">R$ 150</b></span><span class="pill"><span class="pill-n">Despigmentação</span><b class="pill-v">R$ 150</b></span><span class="pill"><span class="pill-n">Microagulhamento</span><b class="pill-v">sob avaliação</b></span><span class="pill"><span class="pill-n">Remoção de sinais</span><b class="pill-v">R$ 100</b></span></div></div><div class="svc-group reveal" data-cat="massagens"><h4>Massagens <span>04</span></h4><div class="pills"><span class="pill"><span class="pill-n">Massagem</span><b class="pill-v">R$ 100</b></span><span class="pill"><span class="pill-n">Ventosa + massagem</span><b class="pill-v">R$ 120</b></span><span class="pill"><span class="pill-n">Pacote de 5 massagens</span><b class="pill-v">R$ 400</b></span><span class="pill"><span class="pill-n">Pacote de 5 massagens + 2 ventosas</span><b class="pill-v">R$ 400</b></span></div></div></div>
 
   <!-- TRANSFORMATIONS -->
   <section class="sec pad">
@@ -740,13 +757,12 @@ const CONFIG = {
   // ---------- Funnel ----------
   const waLink = (msg) => "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
   const CATS = [
-    {id:"brows",  label:"Sobrancelhas & Cílios", svcs:["Design de sobrancelhas","Design com henna","Design inteligente","Reconstrução de sobrancelhas","Brow Lamination","Extensão de cílios","Lash Lift","Tintura","Retirada de cílios"]},
-    {id:"micro",  label:"Micropigmentação", svcs:["Micropigmentação de sobrancelhas","Micropigmentação labial","Neutralização labial","Remoção de micropigmentação e tatuagem"]},
-    {id:"facial", label:"Estética Facial", svcs:["Limpeza de pele","Peeling","Botox","Microagulhamento","Jato de plasma","Dermaplaning","Tratamento de acne"]},
-    {id:"corpo",  label:"Corpo & Bem-estar", svcs:["Massagem","Depilação","Tratamento de varizes"]},
-    {id:"maospes",label:"Mãos & Pés", svcs:["Pé e mão","Spa dos pés","Tratamento dos pés"]},
-    {id:"ajuda",  label:"Ainda não sei", svcs:["__AJUDA__"]}
-  ];
+  {id:"sobrancelhas", label:"Sobrancelhas", svcs:["Design de sobrancelhas","Design com henna","Brow Lamination","Tintura"]},
+  {id:"micro", label:"Micropigmentação", svcs:["Micropigmentação"]},
+  {id:"unhas", label:"Unhas e pés", svcs:["Pé + mão","Spa dos pés","Pé + mão + Spa dos pés","Tratamento para os pés"]},
+  {id:"facial", label:"Estética facial", svcs:["Limpeza de pele","Despigmentação","Microagulhamento","Remoção de sinais"]},
+  {id:"massagens", label:"Massagens", svcs:["Massagem","Ventosa + massagem","Pacote de 5 massagens","Pacote de 5 massagens + 2 ventosas"]}
+];
   const TIMES = ["Manhã","Tarde","Noite","Fim de semana","Assim que possível"];
   const fnState = {cat:null, catLabel:null, svc:null, time:null};
 
